@@ -1,21 +1,36 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from "react";
+import { View } from "react-native";
+import { Provider } from "react-redux";
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import store from "./redux/store";
+import Home from "./components/Home";
+import Cart from "./components/Cart";
+import Orders from "./components/Orders";
+import Account from "./components/Account";
+import ProductDetail from "./components/ProductDetail";
+
+const Stack = createStackNavigator();
+
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  const [userToken, setUserToken] = useState("123");
+
+  
+  return (
+    <Provider store={store}>
+      <View style={{ flex: 1 }}>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Home">
+            <Stack.Screen name="Home" component={Home} initialParams={{ userToken: userToken } }/>
+            <Stack.Screen name="Cart" component={Cart} />
+            <Stack.Screen name="Orders" component={Orders} />
+            <Stack.Screen name="Account" component={Account} initialParams={{ userToken: userToken, setUserToken: setUserToken }} />
+            <Stack.Screen name="ProductDetail" component={ProductDetail} initialParams={{ userToken: userToken }} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </View>
+    </Provider>
+  );
+};
