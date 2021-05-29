@@ -1,4 +1,5 @@
 import { actionsType } from '../actions';
+import uuid from 'react-native-uuid';
 
 const usersList = [{
   email: "admin@shopping.fr",
@@ -16,8 +17,17 @@ const usersList = [{
   id: "7e842bea-b58a-4023-b1fa-dc5cacc44230"
 }];
 
+const addUser = (state, action) => {
+  action.newUser.token = uuid.v4();
+  action.newUser.id = uuid.v4();
+  usersList.push(action.newUser);
+  return usersList;
+};
+
 export const users = (state = usersList, action) => {
   switch (action.type) {
+    case actionsType.ADD_USER:
+      return addUser(state, action);
     default:
       return state;
   }

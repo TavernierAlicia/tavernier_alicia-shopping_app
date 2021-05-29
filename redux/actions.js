@@ -2,10 +2,12 @@ export const actionsType = {
   ADD_PRODUCT:        'ADD_PRODUCT',
   REMOVE_PRODUCT:     'REMOVE_PRODUCT',
   EDIT_PRODUCT:       'EDIT_PRODUCT',
+  CLEAN_CART:         'CLEAN_CART',
   REMOVE_FROM_CART:   'REMOVE_FROM_CART',
   ADD_TO_CART:        'ADD_TO_CART',
   EDIT_QUANTITY_CART: 'EDIT_QUANTITY_CART',
   ADD_ORDER:          'ADD_ORDER',
+  ADD_USER:           'ADD_USER'
 };
 
 export const addProduct = newProduct => ({
@@ -22,6 +24,10 @@ export const editProduct = product => ({
   type: actionsType.EDIT_PRODUCT,
   product: product
 });
+
+export const cleanCart = _ => ({
+  type: actionsType.CLEAN_CART
+})
 
 export const removeFromCart = productId => ({
   type: actionsType.REMOVE_FROM_CART,
@@ -44,4 +50,9 @@ export const addOrder = (cart, userId) => ({
   type: actionsType.ADD_ORDER,
   cart: cart,
   userId: userId
+});
+
+export const addUser = (newUser) => ({
+  type: actionsType.ADD_USER,
+  newUser: newUser
 });

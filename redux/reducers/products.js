@@ -19,6 +19,12 @@ const productsList = [{
   desc: "MUG BLANC de la marque Monsieur Madame. Un cadeau parfait pour Humour,Caractère. Le motif RÂLEUSE À PLEIN TEMPS est imprimé en France dans notre atelier à Toulouse sur un MUG.",
   img: "https://cdn.pixabay.com/photo/2020/11/30/07/55/mug-5790231_1280.jpg",
   price: 6.99
+},{
+  id: "bf398397-20e4-4fba-8706-1b5f741cbccf",
+  name: "The Book | Limited Edition",
+  desc: "The Book, a contemporary, easy-to-understand Bible, is available in The New Living Translation. The Book is an authoritative yet easy-to-read text that brings the Good News in a fresh format that is engaging for readers of all ages.",
+  img: "https://cdn.pixabay.com/photo/2015/11/05/18/59/book-cover-1024644_640.jpg",
+  price: 15.89
 }];
 
 const addProduct = (state, action) => {
@@ -28,7 +34,11 @@ const addProduct = (state, action) => {
 };
 
 const removeProduct = (state, action) => {
+  console.log(action.productId);
+  console.log(productsList);
+  console.log(productsList.findIndex(p => p.id === action.productId));
   productsList.splice(productsList.findIndex(p => p.id === action.productId), 1);
+  console.log(productsList);
   return productsList;
 }
 
