@@ -24,15 +24,14 @@ const Orders = ({route, navigation}) => {
     }
 
     setUser(Auth.token ? store.getState().users.find(u => u.token === Auth.token) : false);
-    setOrders(user ? store.getState().orders.filter(o => o.userId === user.token) : []);
+    setOrders(user ? store.getState().orders.filter(o => o.userId === user.id) : []);
     setProducts(store.getState().products);
 
   } , [isFocused]);
 
   return (
     <View style={styles.container}>
-      <Text>Soon</Text>
-      {/* <FlatList 
+      <FlatList 
         data={orders.sort((a,b) => b - a)}
         keyExtractor={ (item) => item.id }
         extraData={{show: isFocused}}
@@ -48,22 +47,19 @@ const Orders = ({route, navigation}) => {
             }
             return Math.round(p) / 100;
           })();
-          console.log(price);
-          console.log(item.date.toString())
         
-        return 
-        (
-            <TouchableOpacity style={styles.item}>
-              <Text>{item.date.toUTCString()}</Text>
-              <Text>{0}</Text>
-              <Text>Show details</Text>
-            </TouchableOpacity> 
-        )
-        ;}
+          return (
+              <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('OrderDetails', {orderid: item.id})}>
+                <Text>{item.date.toUTCString()}</Text>
+                <Text style={styles.price}>{price}$</Text>
+                <Text style={styles.details}>Show details</Text>
+              </TouchableOpacity> 
+          );
+        }
       }
     
       
-      /> */}
+      />
     </View>
   )
 };
@@ -80,10 +76,18 @@ const styles = StyleSheet.create({
   item: {
     justifyContent: "space-between",
     alignItems: "center",
-    width: "100%",
+    width: 300,
     paddingVertical: 20,
-    flexDirection: "row"
+    flexDirection: "column",
+    borderBottomWidth: 1
   },
+  price: {
+    fontWeight: "bold",
+    paddingVertical: 10
+  },
+  details: {
+    fontStyle: "italic"
+  }
 });
 
 const mapToProps = (state) => {

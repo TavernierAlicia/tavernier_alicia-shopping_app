@@ -1,5 +1,5 @@
 import { actionsType } from '../actions';
-import uuid from 'react-native-uuid';
+
 
 const productsList = [{
   id: "7d60d342-1955-47cc-bcbe-b0a6160e8d86",
@@ -28,8 +28,7 @@ const productsList = [{
 }];
 
 const addProduct = (state, action) => {
-  action.newProduct.id = uuid.v4();
-  productsList.push(action.newProduct)
+  productsList.push({price: 0.00, name: "", img: "", desc: "", id: action.newProduct});
   return productsList;
 };
 

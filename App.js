@@ -10,6 +10,7 @@ import Orders from "./components/Orders";
 import Account from "./components/Account";
 import ProductDetail from "./components/ProductDetail";
 import ProductEdit from "./components/ProductEdit";
+import OrderDetails from "./components/OrderDetails";
 
 const Stack = createStackNavigator();
 
@@ -32,6 +33,7 @@ export default function App() {
               <Stack.Screen name="Orders"         component={Orders}        initialParams={{ Authentification: Authentification}} />
               <Stack.Screen name="ProductDetail"  component={ProductDetail} initialParams={{ Authentification: Authentification}} />
               <Stack.Screen name="ProductEdit"    component={ProductEdit}   initialParams={{ Authentification: Authentification}} />
+              <Stack.Screen name="OrderDetails"   component={OrderDetails}  initialParams={{ Authentification: Authentification}} />
             </Stack.Navigator>
           </NavigationContainer>
         </View>

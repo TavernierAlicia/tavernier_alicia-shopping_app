@@ -45,6 +45,13 @@ const Home = ({route, navigation}) => {
          <Image source={'https://image.flaticon.com/icons/png/512/263/263142.png'} style={styles.iconMenu} />
         </TouchableOpacity>
       </View>
+      { isAdmin && 
+        (<View style={styles.item}>
+          <TouchableOpacity onPress={() => navigation.navigate('ProductEdit', {itemid: -1})}>
+            <Text>Add</Text>
+          </TouchableOpacity>
+        </View>
+        )}
      <FlatList style={styles.listItem}
         data={products}
         keyExtractor={ (item) => item.id }
@@ -70,12 +77,13 @@ const Home = ({route, navigation}) => {
                   step={1}
                   width={100}
                   height={30}
+                  enterKeyHint={""}
                 />
               </View>
             </TouchableOpacity>
             { isAdmin && 
               (<View style={styles.edit}>
-                <TouchableOpacity >
+                <TouchableOpacity onPress={() => navigation.navigate('ProductDelete', {itemid: item.id})}>
                   <Text>Delete</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('ProductEdit', {itemid: item.id})}>
@@ -98,6 +106,13 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     justifyContent: "center",
     flexDirection: "column"
+  },
+  add: {
+    flex: 1,
+    width: "100%",
+    justifyContent: "center",
+    flexDirection: "row",
+    marginHorizontal: 20
   },
   edit: {
     flex: 1,
@@ -147,7 +162,7 @@ const styles = StyleSheet.create({
   },
   btnDetail: {
     marginVertical: 20,
-    width: "400",
+    width: 300,
     fontStyle: 'italic',
     flex: 1,
     justifyContent: "space-between",

@@ -4,11 +4,14 @@ import { View, StyleSheet, TextInput, Text, Image, TouchableOpacity } from "reac
 import InputSpinner from "react-native-input-spinner";
 import store from '../redux/store';
 import { useIsFocused } from '@react-navigation/native';
+import uuid from 'react-native-uuid';
 
 
 const ProductEdit = ({route, navigation}) => {
 
-  const productId             = route.params.itemid;
+  const [productId, setProductId] = React.useState(route.params.itemid);
+
+
 
   const Auth                  = React.useContext(route.params.Authentification);
   const [item, setItem]       = React.useState(store.getState().products.find(p => p.id === productId));
@@ -26,16 +29,28 @@ const ProductEdit = ({route, navigation}) => {
       setDesc(item.desc);
       setPrice(item.price);
     }
-  } , [isFocused]);
+  } , [isFocused, productId]);
 
-  if (!item) navigation.navigate('Home');
   if (!isAdmin) navigation.goBack();
 
+  if (productId == -1) {
+    const p =  uuid.v4();
+    store.dispatch({type: 'ADD_PRODUCT', newProduct: p})
+    setItem({name: "", img: "", desc: "", price: 0.00, id: p});
+    setProductId(p);
+  } else if (!item)  {
+    navigation.navigate('Home');
+  }
 
-  const [name, setName] = React.useState(item.name);
-  const [img, setImg] = React.useState(item.img);
-  const [desc, setDesc] = React.useState(item.desc);
-  const [price, setPrice] = React.useState(item.price);
+  const [name, setName] = React.useState(item ? item.name : '');
+  const [img, setImg] = React.useState(item ? item.img : '');
+  const [desc, setDesc] = React.useState(item ? item.desc : '');
+  const [price, setPrice] = React.useState(item ? item.price : '');
+
+
+
+
+
 
   const editItem = _ => {
     store.dispatch({ type: 'EDIT_PRODUCT', product: {name: name, img: img, id: item.id, desc: desc, price: price}});
