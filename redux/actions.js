@@ -10,6 +10,8 @@ export const actionsType = {
   ADD_USER:           'ADD_USER'
 };
 
+export const getProducts = _ => ({type: actionsType.GET_PRODUCTS});
+
 export const addProduct = newProduct => ({
   type: actionsType.ADD_PRODUCT,
   newProduct: newProduct
@@ -45,6 +47,8 @@ export const editQuantityCart = (productId, quantity) => ({
   productId: productId,
   quantity: quantity
 });
+
+export const getOrder = _ => ({type: actionsType.GET_ORDER});
 
 export const addOrder = (cart, userId) => ({
   type: actionsType.ADD_ORDER,

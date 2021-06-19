@@ -11,8 +11,6 @@ const ProductEdit = ({route, navigation}) => {
 
   const [productId, setProductId] = React.useState(route.params.itemid);
 
-
-
   const Auth                  = React.useContext(route.params.Authentification);
   const [item, setItem]       = React.useState(store.getState().products.find(p => p.id === productId));
   const [user, setUser]       = React.useState(Auth.token ? store.getState().users.find(u => u.token === Auth.token) : false);
@@ -46,11 +44,6 @@ const ProductEdit = ({route, navigation}) => {
   const [img, setImg] = React.useState(item ? item.img : '');
   const [desc, setDesc] = React.useState(item ? item.desc : '');
   const [price, setPrice] = React.useState(item ? item.price : '');
-
-
-
-
-
 
   const editItem = _ => {
     store.dispatch({ type: 'EDIT_PRODUCT', product: {name: name, img: img, id: item.id, desc: desc, price: price}});
